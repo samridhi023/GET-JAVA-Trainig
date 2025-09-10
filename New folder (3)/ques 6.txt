@@ -1,0 +1,24 @@
+Write a Java Program to check whether entered City is IT City or Not. Consider Delhi, Mumbai, Kolkatta, Bangalore, Chennai , Hyderabad as IT cities.
+
+import java.util.Scanner;
+
+public class ITCityCheck {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Ask user for input
+        System.out.print("Enter a city name: ");
+        String city = sc.nextLine();
+
+        // Check if city is an IT city
+        if (city.equalsIgnoreCase("Delhi") || city.equalsIgnoreCase("Mumbai") ||
+            city.equalsIgnoreCase("Kolkatta") || city.equalsIgnoreCase("Bangalore") ||
+            city.equalsIgnoreCase("Chennai") || city.equalsIgnoreCase("Hyderabad")) {
+            System.out.println(city + " is an IT City.");
+        } else {
+            System.out.println(city + " is NOT an IT City.");
+        }
+
+        sc.close();
+    }
+}

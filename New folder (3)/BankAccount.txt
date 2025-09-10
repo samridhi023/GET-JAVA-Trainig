@@ -1,0 +1,373 @@
+Create a class named BankAccount that encapsulates the details of a bank account. Implement methods for deposit & withdraw money from bank.
+
+
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Date;
+
+// BankAccount class that encapsulates bank account details
+class BankAccount {
+// Private instance variables (Encapsulation)
+private String accountNumber;
+private String accountHolderName;
+private double balance;
+private String accountType;
+private Date dateOpened;
+private ArrayList<String> transactionHistory;
+
+
+// Static variable to generate unique account numbers
+private static int accountCounter = 1000;
+
+// Default constructor
+public BankAccount() {
+    this.accountNumber = generateAccountNumber();
+    this.accountHolderName = "";
+    this.balance = 0.0;
+    this.accountType = "Savings";
+    this.dateOpened = new Date();
+    this.transactionHistory = new ArrayList<>();
+    addTransaction("Account created with balance: $0.00");
+}
+// Parameterized constructor
+public BankAccount(String accountHolderName, double initialBalance, String accountType) {
+    this.accountNumber = generateAccountNumber();
+    this.accountHolderName = accountHolderName;
+    this.balance = initialBalance >= 0 ? initialBalance : 0.0;
+    this.accountType = accountType;
+    this.dateOpened = new Date();
+    this.transactionHistory = new ArrayList<>();
+    addTransaction("Account created with initial balance: $" + String.format("%.2f", this.balance));
+}
+
+// Method to generate unique account numbers
+private String generateAccountNumber() {
+    return "ACC" + (++accountCounter);
+}
+
+// Method to add transaction to history
+private void addTransaction(String transaction) {
+    String timestamp = new Date().toString();
+    transactionHistory.add(timestamp + " - " + transaction);
+}
+// Getter methods
+public String getAccountNumber() {
+    return accountNumber;
+}
+
+public String getAccountHolderName() {
+    return accountHolderName;
+}
+
+public double getBalance() {
+    return balance;
+}
+
+public String getAccountType() {
+    return accountType;
+}
+
+public Date getDateOpened() {
+    return dateOpened;
+}
+
+// Setter methods (with validation)
+public void setAccountHolderName(String accountHolderName) {
+    if (accountHolderName != null && !accountHolderName.trim().isEmpty()) {
+        this.accountHolderName = accountHolderName;
+        addTransaction("Account holder name updated to: " + accountHolderName);
+    }
+}
+
+public void setAccountType(String accountType) {
+    if (accountType != null && !accountType.trim().isEmpty()) {
+        String oldType = this.accountType;
+        this.accountType = accountType;
+        addTransaction("Account type changed from " + oldType + " to " + accountType);
+    }
+}
+
+// Method to deposit money
+public boolean deposit(double amount) {
+    if (amount <= 0) {
+        System.out.println("❌ Error: Deposit amount must be greater than zero.");
+        return false;
+    }
+    
+    if (amount > 50000) {
+        System.out.println("❌ Error: Single deposit cannot exceed $50,000.");
+        return false;
+    }
+    
+    balance += amount;
+    addTransaction("Deposited: $" + String.format("%.2f", amount) + 
+                  " | New Balance: $" + String.format("%.2f", balance));
+System.out.println("✅ Successfully deposited $" + String.format("%.2f", amount));
+    System.out.println("💰 Current balance: $" + String.format("%.2f", balance));
+    return true;
+}
+
+// Method to withdraw money
+public boolean withdraw(double amount) {
+    if (amount <= 0) {
+        System.out.println("❌ Error: Withdrawal amount must be greater than zero.");
+        return false;
+    }
+    
+    if (amount > balance) {
+        System.out.println("❌ Error: Insufficient funds. Current balance: $" + String.format("%.2f", balance));
+        return false;
+    }
+    
+    if (amount > 10000) {
+        System.out.println("❌ Error: Single withdrawal cannot exceed $10,000.");
+        return false;
+    }
+    
+    balance -= amount;
+    addTransaction("Withdrew: $" + String.format("%.2f", amount) + 
+                  " | New Balance: $" + String.format("%.2f", balance));
+System.out.println("✅ Successfully withdrew $" + String.format("%.2f", amount));
+    System.out.println("💰 Current balance: $" + String.format("%.2f", balance));
+    return true;
+}
+
+// Method to check balance
+public void checkBalance() {
+    System.out.println("💰 Account Balance: $" + String.format("%.2f", balance));
+}
+
+// Method to display account details
+public void displayAccountDetails() {
+    System.out.println("\n" + "=".repeat(50));
+    System.out.println("           ACCOUNT DETAILS");
+    System.out.println("=".repeat(50));
+    System.out.println("Account Number    : " + accountNumber);
+    System.out.println("Account Holder    : " + accountHolderName);
+    System.out.println("Account Type      : " + accountType);
+    System.out.println("Current Balance   : $" + String.format("%.2f", balance));
+    System.out.println("Date Opened       : " + dateOpened.toString().substring(0, 10));
+    System.out.println("=".repeat(50));
+}
+
+// Method to display transaction history
+public void displayTransactionHistory() {
+System.out.println("\n" + "=".repeat(70));
+    System.out.println("               TRANSACTION HISTORY");
+    System.out.println("=".repeat(70));
+    
+    if (transactionHistory.isEmpty()) {
+        System.out.println("No transactions found.");
+    } else {
+        for (int i = transactionHistory.size() - 1; i >= 0; i--) {
+            System.out.println((transactionHistory.size() - i) + ". " + transactionHistory.get(i));
+        }
+    }
+    System.out.println("=".repeat(70));
+}
+
+// Method to transfer money to another account
+public boolean transferMoney(BankAccount targetAccount, double amount) {
+    if (targetAccount == null) {
+        System.out.println("❌ Error: Invalid target account.");
+        return false;
+    }
+    
+    if (amount <= 0) {
+        System.out.println("❌ Error: Transfer amount must be greater than zero.");
+        return false;
+    }
+    
+    if (amount > balance) {
+        System.out.println("❌ Error: Insufficient funds for transfer.");
+return false;
+    }
+    
+    // Withdraw from current account
+    balance -= amount;
+    addTransaction("Transferred: $" + String.format("%.2f", amount) + 
+                  " to Account: " + targetAccount.getAccountNumber() + 
+                  " | New Balance: $" + String.format("%.2f", balance));
+    
+    // Deposit to target account
+    targetAccount.balance += amount;
+    targetAccount.addTransaction("Received: $" + String.format("%.2f", amount) + 
+                               " from Account: " + this.accountNumber + 
+                               " | New Balance: $" + String.format("%.2f", targetAccount.balance));
+    
+    System.out.println("✅ Successfully transferred $" + String.format("%.2f", amount) + 
+                      " to " + targetAccount.getAccountHolderName());
+    return true;
+}
+
+// Override toString method
+@Override
+public String toString() {
+    return String.format("BankAccount{Account: %s, Holder: %s, Balance: $%.2f, Type: %s}", 
+                       accountNumber, accountHolderName, balance, accountType);
+}
+
+
+}
+
+// Main class to demonstrate BankAccount functionality
+public class BankAccountSystem {
+private static Scanner scanner = new Scanner(System.in);
+
+
+public static void main(String[] args) {
+    System.out.println("🏦 WELCOME TO JAVA BANK MANAGEMENT SYSTEM 🏦");
+    System.out.println("=" .repeat(60));
+    
+    // Demonstrate creating accounts
+    System.out.println("\n📝 Creating Sample Bank Accounts...\n");
+    
+    // Create accounts using different constructors
+    BankAccount account1 = new BankAccount("John Doe", 1000.0, "Savings");
+    BankAccount account2 = new BankAccount("Jane Smith", 2500.0, "Checking");
+    BankAccount account3 = new BankAccount(); // Default constructor
+    account3.setAccountHolderName("Bob Johnson");
+    account3.setAccountType("Savings");
+    
+    // Display account details
+    account1.displayAccountDetails();
+    account2.displayAccountDetails();
+    
+// Interactive banking operations
+    System.out.println("\n🎯 Let's perform some banking operations on John's account:");
+    
+    // Deposit operations
+    System.out.println("\n💵 DEPOSIT OPERATIONS:");
+    account1.deposit(500.0);   // Valid deposit
+    account1.deposit(-100.0);  // Invalid deposit
+    account1.deposit(0.0);     // Invalid deposit
+    
+    // Withdraw operations
+    System.out.println("\n💸 WITHDRAWAL OPERATIONS:");
+    account1.withdraw(200.0);  // Valid withdrawal
+    account1.withdraw(2000.0); // Insufficient funds
+    account1.withdraw(-50.0);  // Invalid amount
+    
+    // Balance check
+    System.out.println("\n💰 BALANCE CHECK:");
+    account1.checkBalance();
+    
+    // Transfer operation
+    System.out.println("\n🔄 TRANSFER OPERATION:");
+    account1.transferMoney(account2, 300.0);
+    
+    // Show updated balances
+    System.out.println("\n📊 UPDATED ACCOUNT BALANCES:");
+    account1.checkBalance();
+    account2.checkBalance();
+    
+// Show transaction history
+    account1.displayTransactionHistory();
+    
+    // Interactive menu
+    interactiveBankingMenu(account1);
+}
+
+// Interactive banking menu
+public static void interactiveBankingMenu(BankAccount account) {
+    System.out.println("\n🎮 INTERACTIVE BANKING MENU");
+    System.out.println("Working with account: " + account.getAccountHolderName());
+    
+    while (true) {
+        System.out.println("\n" + "-".repeat(40));
+        System.out.println("Choose an option:");
+        System.out.println("1. 💰 Check Balance");
+        System.out.println("2. 💵 Deposit Money");
+        System.out.println("3. 💸 Withdraw Money");
+        System.out.println("4. 📋 View Account Details");
+        System.out.println("5. 📜 View Transaction History");
+        System.out.println("6. 🚪 Exit");
+        System.out.print("Enter your choice (1-6): ");
+        
+        try {
+            int choice = scanner.nextInt();
+            
+            switch (choice) {
+                case 1:
+                    account.checkBalance();
+                    break;
+ case 2:
+                    System.out.print("Enter deposit amount: $");
+                    double depositAmount = scanner.nextDouble();
+                    account.deposit(depositAmount);
+                    break;
+                    
+                case 3:
+                    System.out.print("Enter withdrawal amount: $");
+                    double withdrawAmount = scanner.nextDouble();
+                    account.withdraw(withdrawAmount);
+                    break;
+                    
+                case 4:
+                    account.displayAccountDetails();
+                    break;
+                    
+                case 5:
+                    account.displayTransactionHistory();
+                    break;
+                    
+                case 6:
+                    System.out.println("🙏 Thank you for using Java Bank Management System!");
+                    return;
+                    
+                default:
+                    System.out.println("❌ Invalid choice. Please enter 1-6.");
+  }
+        } catch (Exception e) {
+            System.out.println("❌ Invalid input. Please enter a valid number.");
+            scanner.nextLine(); // Clear invalid input
+        }
+    }
+}
+
+
+}
+
+// Enhanced BankAccount with additional features
+class SavingsAccount extends BankAccount {
+private double interestRate;
+private double minimumBalance;
+
+
+public SavingsAccount(String accountHolderName, double initialBalance, double interestRate) {
+    super(accountHolderName, initialBalance, "Savings");
+    this.interestRate = interestRate;
+    this.minimumBalance = 100.0; // Minimum balance requirement
+}
+
+// Override withdraw method to check minimum balance
+@Override
+public boolean withdraw(double amount) {
+    if (getBalance() - amount < minimumBalance) {
+        System.out.println("❌ Error: Withdrawal would violate minimum balance requirement of $" + String.format("%.2f", minimumBalance));
+
+ return false;
+    }
+    return super.withdraw(amount);
+}
+
+// Method to calculate and add interest
+public void addInterest() {
+    double interest = getBalance() * (interestRate / 100);
+    if (super.deposit(interest)) {
+        System.out.println("🎉 Interest added: $" + String.format("%.2f", interest) + 
+                         " at rate: " + interestRate + "%");
+    }
+}
+
+public double getInterestRate() {
+    return interestRate;
+}
+
+public double getMinimumBalance() {
+    return minimumBalance;
+}
+
+
+}
+

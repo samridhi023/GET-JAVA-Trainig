@@ -1,0 +1,39 @@
+Write a Java program that prompts the user to enter an integer. The program should then determine whether the number is prime and print the result. A prime number is a number that is greater than 1 and has no positive divisors other than 1 and itself.
+Expected Output: If the user inputs "7", the program should output: "7 is a prime number." If the user inputs "10", the program should output: "10 is not a prime number."
+
+
+
+import java.util.Scanner;
+
+public class PrimeCheck {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Input number
+        System.out.print("Enter an integer: ");
+        int num = sc.nextInt();
+
+        // Prime check
+        boolean isPrime = true;
+
+        if (num <= 1) {
+            isPrime = false;  // numbers <= 1 are not prime
+        } else {
+            for (int i = 2; i <= Math.sqrt(num); i++) {  // check divisibility up to sqrt(num)
+                if (num % i == 0) {
+                    isPrime = false;
+                    break;
+                }
+            }
+        }
+
+        // Print result
+        if (isPrime) {
+            System.out.println(num + " is a prime number.");
+        } else {
+            System.out.println(num + " is not a prime number.");
+        }
+
+        sc.close();
+    }
+}

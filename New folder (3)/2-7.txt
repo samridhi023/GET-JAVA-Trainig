@@ -1,0 +1,29 @@
+Question: Write a Java program that asks the user to enter an integer. The program should then calculate and print the sum of the digits of the entered number.
+Expected Output: If the user inputs "1234", the program should output: "The sum of the digits is 10."
+
+
+import java.util.Scanner;
+
+public class SumOfDigits {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Input number
+        System.out.print("Enter an integer: ");
+        int num = sc.nextInt();
+        int original = num;
+        int sum = 0;
+
+        // Extract digits and add
+        while (num != 0) {
+            int digit = num % 10;  // get last digit
+            sum += digit;          // add digit to sum
+            num = num / 10;        // remove last digit
+        }
+
+        // Print result
+        System.out.println("The sum of the digits is " + sum + ".");
+
+        sc.close();
+    }
+}

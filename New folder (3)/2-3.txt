@@ -1,0 +1,33 @@
+3.Write a Java program that asks the user to enter the lengths of three sides of a triangle. The program should then determine whether the triangle is equilateral, isosceles, or scalene. An equilateral triangle has all three sides equal, an isosceles triangle has two sides equal, and a scalene triangle has all sides different.
+Expected Output: If the user inputs "5", "5", and "5", the program should output: "The triangle is equilateral." If the user inputs "5", "5", and "7", the program should output: "The triangle is isosceles." If the user inputs "3", "4", and "5", the program should output: "The triangle is scalene."
+
+
+
+import java.util.Scanner;
+
+public class TriangleType {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Input three sides
+        System.out.print("Enter side 1: ");
+        int side1 = sc.nextInt();
+
+        System.out.print("Enter side 2: ");
+        int side2 = sc.nextInt();
+
+        System.out.print("Enter side 3: ");
+        int side3 = sc.nextInt();
+
+        // Check triangle type
+        if (side1 == side2 && side2 == side3) {
+            System.out.println("The triangle is equilateral.");
+        } else if (side1 == side2 || side2 == side3 || side1 == side3) {
+            System.out.println("The triangle is isosceles.");
+        } else {
+            System.out.println("The triangle is scalene.");
+        }
+
+        sc.close();
+    }
+}

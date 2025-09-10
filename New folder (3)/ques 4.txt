@@ -1,0 +1,23 @@
+Write a Java program that asks the user to enter their weight in kilograms and height in meters, then calculates and prints their Body Mass Index (BMI). Use the formula BMI = weight / (height * height).
+
+import java.util.Scanner;
+public class BMICalculator {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Ask user for input
+        System.out.print("Enter your weight in kilograms: ");
+        double weight = sc.nextDouble();
+
+        System.out.print("Enter your height in meters: ");
+        double height = sc.nextDouble();
+
+        // Calculate BMI
+        double bmi = weight / (height * height);
+
+        // Print result
+        System.out.printf("Your BMI is: ", bmi);
+
+        sc.close();
+    }
+}

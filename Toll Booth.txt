@@ -1,0 +1,144 @@
+// Truck interface
+interface Truck {
+    int getAxles();
+    int getWeight();
+    String getMake();
+}
+
+// TollBooth interface
+interface TollBooth {
+    void calculateToll(Truck truck);
+    void displayData();
+    void collectReceipts();
+}
+
+// FordTruck class
+class FordTruck implements Truck {
+    private int axles;
+    private int weight;
+    private String make;
+
+    public FordTruck(int axles, int weight) {
+        this.axles = axles;
+        this.weight = weight;
+        this.make = "Ford";
+    }
+
+    public int getAxles() {
+        return axles;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public String getMake() {
+        return make;
+    }
+}
+
+// NissanTruck class
+class NissanTruck implements Truck {
+    private int axles;
+    private int weight;
+    private String make;
+
+    public NissanTruck(int axles, int weight) {
+        this.axles = axles;
+        this.weight = weight;
+        this.make = "Nissan";
+    }
+
+    public int getAxles() {
+        return axles;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public String getMake() {
+        return make;
+    }
+}
+
+// DaewooTruck class
+class DaewooTruck implements Truck {
+    private int axles;
+    private int weight;
+    private String make;
+
+    public DaewooTruck(int axles, int weight) {
+        this.axles = axles;
+        this.weight = weight;
+        this.make = "Daewoo";
+    }
+
+    public int getAxles() {
+        return axles;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public String getMake() {
+        return make;
+    }
+}
+
+// TollBooth implementation
+class AlleghenyTollBooth implements TollBooth {
+    private int totalTrucks;
+    private int totalReceipts;
+
+    public AlleghenyTollBooth() {
+        totalTrucks = 0;
+        totalReceipts = 0;
+    }
+
+    public void calculateToll(Truck truck) {
+        int tollDue = 5 * truck.getAxles() + 10 * (truck.getWeight() / 500);
+        System.out.println("Arrival of " + truck.getMake() + " Truck");
+        System.out.println("Truck arrival - Axles: " + truck.getAxles()
+                + " Total weight: " + truck.getWeight()
+                + " Toll due: $" + tollDue);
+
+        totalTrucks++;
+        totalReceipts += tollDue;
+    }
+
+    public void displayData() {
+        System.out.println("\nTotals since last collection - Receipts: $" + totalReceipts
+                + " Trucks: " + totalTrucks);
+    }
+
+    public void collectReceipts() {
+        System.out.println("\n*** Collecting receipts ***");
+        System.out.println("Totals since the last collection - Receipts: $" + totalReceipts
+                + " Trucks: " + totalTrucks);
+
+        // Reset
+        totalTrucks = 0;
+        totalReceipts = 0;
+        System.out.println("\n***** Reset Receipts **********");
+        displayData();
+    }
+}
+
+// Test Class
+public class TestTollBooth {
+    public static void main(String[] args) {
+        TollBooth booth = new AlleghenyTollBooth();
+
+        Truck ford = new FordTruck(5, 12500);
+        Truck nissan = new NissanTruck(2, 5000);
+        Truck daewoo = new DaewooTruck(6, 17000);
+
+        booth.calculateToll(ford);
+        booth.calculateToll(nissan);
+        booth.calculateToll(daewoo);
+
+        booth.collectReceipts();
+    }
+}

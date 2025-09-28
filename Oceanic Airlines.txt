@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oceanic Airlines</title>
+  <link rel="stylesheet" href="Oceanic Airlines.css">
+</head>
+<body>
+  <div class="page-wrap">
+
+    <!-- Header -->
+    <header class="site-header">
+      <h1>Oceanic Airlines</h1>
+    </header>
+
+    <!-- Nav Band -->
+    <div class="nav-band">
+      <nav class="main-nav">
+        <a href="#">Home</a>
+        <a href="#">Upcoming Flights</a>
+        <a href="#">About Us</a>
+        <a href="#">Travel Guide</a>
+        <a href="#">Contact Us</a>
+      </nav>
+    </div>
+
+    <!-- Content Card -->
+    <main class="content-card">
+      <img src="images/photo.jpg" alt="Beautiful travel destination" class="hero">
+
+      <h2>Welcome!</h2>
+      <p class="lead">
+        Looking to lose yourself? Take a trip with Oceanic Airlines!
+        <br><br>
+        Experience the fun and adventure of a destination unlike any other! 
+        Regardless of what you have in mind, we promise you a trip you’ll never forget. 
+        Enjoy it all with (at least) two extra nights free!
+      </p>
+
+      <!-- Two Column Links -->
+      <div class="link-columns">
+        <div>
+          <h3>For Standard Travelers:</h3>
+          <ul>
+            <li><a href="#">Standard seating charts</a></li>
+            <li><a href="#">Find out why our flights are so unique</a></li>
+            <li><a href="#">Read our insurance policy</a></li>
+            <li><a href="#">Join our frequent flyer club</a></li>
+            <li><a href="#">More Travel Resources...</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>For "Others":</h3>
+          <ul>
+            <li><a href="#">Effect of electromagnetism on travelers</a></li>
+            <li><a href="#">Flying with animals</a></li>
+            <li><a href="#">Non-Smoking policy</a></li>
+            <li><a href="#">More Travel Resources...</a></li>
+          </ul>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <p>Copyright © 2012 Oceanic Airlines</p>
+      <p>Phone: 481.516.2342 | info@oceanicairlines.air</p>
+    </footer>
+  </div>
+</body>
+</html>
+
+
+
+CSS:-
+/* Oceanic Airlines — style.css
+   Created to match the provided mockup: teal paper background, rounded white content panel,
+   teal header band, orange tabbed navigation, centered hero image with rounded corners,
+   two-column link lists, and subtle footer.
+*/
+
+/* Reset / base */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  background-color: #e0f2f5; /* pale teal paper */
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.45;
+  padding: 40px 0;
+  display: flex;
+  justify-content: center;
+}
+
+/* Page wrapper to visually match the mockup border */
+.page-wrap {
+  width: 940px;                /* similar size to the mockup */
+  max-width: 96%;
+  border-radius: 8px;
+  background: linear-gradient(#bfe5ea, #bfe6e9); /* subtle header/top tint */
+  padding: 18px;
+  box-shadow: 0 6px 0 rgba(0,0,0,0.06) inset, 0 8px 28px rgba(0,0,0,0.12);
+  border: 6px solid rgba(0,0,0,0); /* preserve layout spacing */
+}
+
+/* Site title / logo area */
+.site-header {
+  text-align: center;
+  padding: 18px 10px 8px;
+  margin-bottom: 6px;
+}
+.site-header h1 {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: 46px;
+  color: #ffffff;
+  text-shadow: 0 2px 0 rgba(0,0,0,0.15);
+  letter-spacing: 1px;
+  display: inline-block;
+  background: transparent;
+  margin-top: 6px;
+}
+
+/* teal nav band that contains orange tabbed nav */
+.nav-band {
+  background: #0c8a8f; /* deep teal */
+  border-radius: 8px;
+  padding: 20px 24px 8px;
+  margin-bottom: 14px;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.08) inset;
+}
+
+/* Tabbed navigation */
+.main-nav {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  align-items: flex-end;
+  margin-top: -6px; /* to tuck tabs up */
+}
+.main-nav a {
+  display: inline-block;
+  padding: 10px 28px;
+  background: linear-gradient(#ff9f2e, #f67f22); /* orange tab */
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 6px 6px 0 0;
+  box-shadow: 0 2px 0 rgba(0,0,0,0.14);
+  transform: translateY(6px); /* visually raise the band/tabs effect */
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.main-nav a:hover, .main-nav a:focus {
+  transform: translateY(0);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+/* Main content container (white card) */
+.content-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 28px 36px;
+  border: 3px solid rgba(12,138,143,0.08);
+  box-shadow: 0 6px 22px rgba(2,32,33,0.06);
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+/* Hero image */
+.hero {
+  display: block;
+  width: 100%;
+  max-height: 340px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 2px solid rgba(12,138,143,0.06);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  margin-bottom: 22px;
+}
+
+/* Headline */
+.content-card h2 {
+  color: #0a7b81;
+  font-size: 22px;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+/* Intro paragraph */
+.content-card p.lead {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+
+/* Two-column link lists area */
+.link-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-top: 8px;
+  align-items: start;
+}
+
+/* Column titles and lists */
+.link-columns h3 {
+  color: #0a7b81;
+  font-size: 15px;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.link-columns ul {
+  list-style: none;
+  padding-left: 0;
+}
+.link-columns li {
+  margin: 8px 0;
+  font-size: 13px;
+}
+.link-columns a {
+  color: #f29434; /* orange links */
+  text-decoration: none;
+  border-bottom: 1px dotted rgba(242,148,52,0.12);
+}
+.link-columns a:hover { text-decoration: underline; }
+
+/* Footer (centered, small) */
+.site-footer {
+  text-align: center;
+  margin-top: 22px;
+  padding: 12px 6px;
+  color: rgba(12,138,143,0.8);
+  font-size: 12px;
+}
+
+/* Responsive tweaks */
+@media (max-width: 780px) {
+  .page-wrap { padding: 12px; }
+  .site-header h1 { font-size: 34px; }
+  .main-nav { gap: 8px; flex-wrap: wrap; }
+  .main-nav a { padding: 8px 14px; font-size: 13px; }
+  .content-card { padding: 18px; }
+  .hero { max-height: 220px; }
+  .link-columns { grid-template-columns: 1fr; gap: 16px; }
+}
+
+/* Small accessibility and print improvements */
+a:focus { outline: 3px solid rgba(15,120,125,0.18); outline-offset: 2px; }
+@media print {
+  body { background: #fff; padding: 0; }
+  .page-wrap { box-shadow: none; border: none; background: #fff; }
+  .main-nav a { box-shadow: none; }
+}
